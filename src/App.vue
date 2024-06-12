@@ -2,12 +2,17 @@
 import { computed, ref } from "vue"
 import { RouterLink, RouterView } from "vue-router"
 import HelloWorld from "./components/HelloWorld.vue"
-let message = ref("测试ref的使用1")
+import { useCounterStore } from "./stores/counter"
+
+let message = ref("测试ref的使用100")
 setTimeout(() => {
   message.value = "测试ref的使用2"
 }, 3000)
+
+const counter = useCounterStore()
+
 const computedMessage = computed(() => {
-  return message.value === "测试ref的使用1" ? "yes" : "no"
+  return message.value === "测试ref的使用100" ? "yes" : "no"
 })
 </script>
 
@@ -19,6 +24,10 @@ const computedMessage = computed(() => {
       <HelloWorld msg="You did it!" />
       {{ message }}
       {{ computedMessage }}
+      {{ counter.count }}
+      {{ counter.doubleCount }}
+      <button @click="counter.increment">add</button>
+      <button @click="counter.decrement">subtract</button>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
