@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { computed, ref } from "vue"
 import { RouterLink, RouterView } from "vue-router"
 import HelloWorld from "./components/HelloWorld.vue"
+let message = ref("测试ref的使用1")
+setTimeout(() => {
+  message.value = "测试ref的使用2"
+}, 3000)
+const computedMessage = computed(() => {
+  return message.value === "测试ref的使用1" ? "yes" : "no"
+})
 </script>
 
 <template>
@@ -9,7 +17,8 @@ import HelloWorld from "./components/HelloWorld.vue"
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
+      {{ message }}
+      {{ computedMessage }}
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
